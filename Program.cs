@@ -32,7 +32,16 @@ namespace check_line_endings
 
         static Endings endings(string path)
         {
-            var bytes = File.ReadAllBytes(path);
+            byte[] bytes = null;
+            try
+            {
+                bytes = File.ReadAllBytes(path);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Environment.Exit(1);
+            }
             var r = Endings.none;
             for (int i = 0; i < bytes.Length; i++)
                 switch (bytes[i])
