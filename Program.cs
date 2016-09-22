@@ -113,16 +113,8 @@ namespace check_line_endings
                 patterns.Add("*");
             var files = new List<string>();
             foreach (var pattern in patterns)
-            {
-                var expanded = Glob.Glob.ExpandNames(pattern);
-                if (expanded.Count() == 0)
-                {
-                    files.Add(pattern);
-                    continue;
-                }
-                foreach (var file in expanded)
+                foreach (var file in Glob.Glob.ExpandNames(pattern))
                     files.Add(file);
-            }
             foreach (var path in files)
             {
                 if (Directory.Exists(path))
